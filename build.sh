@@ -6,9 +6,9 @@
 SECONDS=0 # start builtin bash timer
 KP_ROOT="$(realpath ../..)"
 SRC_ROOT="$HOME/pa"
-TC_DIR="$KP_ROOT/prebuilts-master/clang/host/linux-x86/clang-r510928"
+TC_DIR="$KP_ROOT/clang/$CLANG_DIR"
 PREBUILTS_DIR="$KP_ROOT/prebuilts/kernel-build-tools/linux-x86"
-BRANCH="$(git branch --show-current)"
+BRANCH="android12-9-00085-g226a9632f13d-ab11136126"
 MODULES_REPO="sm8450-modules"
 DT_REPO="sm8450-devicetrees"
 
@@ -70,6 +70,7 @@ VDLKM_DIR="$KERNEL_DIR/vendor_dlkm"
 DEFCONFIG="gki_defconfig"
 DEFCONFIGS="vendor/waipio_GKI.config \
 vendor/xiaomi_GKI.config \
+vendor/personal.config \
 vendor/debugfs.config"
 
 MODULES_SRC="../$MODULES_REPO/qcom/opensource"
@@ -106,6 +107,7 @@ export PATH="$TC_DIR/bin:$PREBUILTS_DIR/bin:$PATH"
 
 function m() {
     make -j$(nproc --all) O=out ARCH=arm64 LLVM=1 LLVM_IAS=1 \
+        KBUILD_BUILD_USER=bryanyee33 KBUILD_BUILD_HOST=android-build \
         DTC_EXT="$PREBUILTS_DIR/bin/dtc" \
         DTC_OVERLAY_TEST_EXT="$PREBUILTS_DIR/bin/ufdt_apply_overlay" \
         TARGET_PRODUCT=$TARGET $@ || exit $?
