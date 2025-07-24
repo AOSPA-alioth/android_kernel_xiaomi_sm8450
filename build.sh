@@ -181,7 +181,7 @@ mv  out/arch/arm64/boot/dts/vendor/qcom/$DTB_WILDCARD.dtb \
     out/arch/arm64/boot/dts/vendor/qcom/$DTBO_WILDCARD.dtbo \
     out/dtbs-base
 rm -f out/arch/arm64/boot/dts/vendor/qcom/*.dtbo
-../../build/android/merge_dtbs.py out/dtbs-base out/arch/arm64/boot/dts/vendor/qcom/ out/dtbs || exit $?
+../../build/android/merge_dtbs.py -b out/dtbs-base -t out/arch/arm64/boot/dts/vendor/qcom/ -o out/dtbs || exit $?
 
 echo -e "\nCopying files...\n"
 
