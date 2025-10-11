@@ -10,7 +10,7 @@ TC_DIR="$KP_ROOT/prebuilts-master/clang/host/linux-x86/clang-r510928"
 PREBUILTS_DIR="$KP_ROOT/prebuilts/kernel-build-tools/linux-x86"
 
 DO_CLEAN=false
-NO_LTO=false
+NO_LTO=true
 ONLY_CONFIG=false
 TARGET=
 DTB_WILDCARD="*"
@@ -104,7 +104,7 @@ export PATH="$TC_DIR/bin:$PREBUILTS_DIR/bin:$PATH"
 
 function m() {
     make -j$(nproc --all) O=out ARCH=arm64 LLVM=1 LLVM_IAS=1 \
-        KBUILD_BUILD_USER=bryanyee33 KBUILD_BUILD_HOST=android-build \
+        KBUILD_BUILD_USER=xeesan KBUILD_BUILD_HOST=EndevourOS \
         DTC_EXT="$PREBUILTS_DIR/bin/dtc" \
         DTC_OVERLAY_TEST_EXT="$PREBUILTS_DIR/bin/ufdt_apply_overlay" \
         TARGET_PRODUCT=$TARGET $@ || exit $?
@@ -120,7 +120,7 @@ mkdir -p out
 m $DEFCONFIG
 m ./scripts/kconfig/merge_config.sh $DEFCONFIGS vendor/${TARGET}_GKI.config
 scripts/config --file out/.config \
-    --set-str LOCALVERSION "-android12-9-00085-g226a9632f13d-ab11136126"
+    --set-str LOCALVERSION "-aospa"
 $NO_LTO && (
     scripts/config --file out/.config \
         -d LTO_CLANG_FULL -e LTO_NONE \
